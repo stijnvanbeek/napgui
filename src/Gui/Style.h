@@ -3,7 +3,7 @@
 #include <nap/resource.h>
 #include <imgui/imgui.h>
 
-#include <imguistylesettings.h>
+#include <Gui/ImGuiStyleSettings.h>
 
 namespace nap
 {
@@ -17,7 +17,7 @@ namespace nap
 		/**
 		 * Resource that can hold an arbitrary number of style settings that can be applied to any Gui object.
 		 */
-		class NAPAPI Style : public Resource
+		class NAPAPI StyleDef : public Resource
 		{
 			RTTI_ENABLE(Resource)
 
@@ -32,7 +32,7 @@ namespace nap
 			float mFontScaling = 1.f; ///< Property: 'FontScaling'
 
 		public:
-            Style(Core& core);
+            StyleDef(Core& core);
 			void push();
 			void pop();
 			void apply(ImGuiStyle& imGuiStyle);

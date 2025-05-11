@@ -21,7 +21,7 @@ namespace nap
 		public:
 			std::string mTitle = ""; 				///< Property: 'Title' Title associated with this Gui. Can be used by descendant classes to display a caption or in some cases to generate an ImGui ID.
 
-			ResourcePtr<Style> mStyle = nullptr; ///< Property: 'Style' Link to a Style resources that contains style deifinitions that will be applied on this Gui. In case the Gui contains other Gui objects as content the style will automatically apply to those as well.
+			ResourcePtr<StyleDef> mStyle = nullptr; ///< Property: 'Style' Link to a Style resources that contains style deifinitions that will be applied on this Gui. In case the Gui contains other Gui objects as content the style will automatically apply to those as well.
 
 		public:
 			Gui() = default;
