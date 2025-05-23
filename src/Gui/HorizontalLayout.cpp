@@ -1,6 +1,8 @@
 #include "HorizontalLayout.h"
 
 #include <imgui/imgui.h>
+#include <imgui_internal.h>
+
 
 RTTI_BEGIN_CLASS(nap::gui::HorizontalLayout)
 	RTTI_PROPERTY("ColumnWidths", &nap::gui::HorizontalLayout::mColumnWidths, nap::rtti::EPropertyMetaData::Default)
@@ -15,13 +17,15 @@ namespace nap
 
 		void HorizontalLayout::draw()
 		{
-			ImGui::Columns(mContent.size(), nullptr, mBorders);
+			auto guiID = "###" + mID;
+			ImGui::BeginColumns(guiID.c_str(), mContent.size());
 			for (auto i = 0; i < mContent.size(); ++i)
 			{
 				mContent[i]->show();
-				ImGui::NextColumn();
+				if (i < mContent.size() - 1)
+					ImGui::NextColumn();
 			}
-			ImGui::Columns(1);
+			ImGui::EndColumns();
 		}
 
 	}
