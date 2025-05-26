@@ -45,6 +45,7 @@ namespace nap
 
 			float mAlpha = 1.f; ///< Property: 'Alpha' Alpha blending value for the panel's background. 0 is transparent, 1 is opaque.
 			bool mBorder = true; ///< Property: 'Border' Indicates wether to draw a border around the panel.
+			bool mTitleBar = false;
 
 			ResourcePtr<Gui> mContent = nullptr; ///< Property: 'Content' Embedded Gui resource that will be displayed inside the panel.
 

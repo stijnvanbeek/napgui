@@ -17,6 +17,7 @@ RTTI_BEGIN_CLASS_NO_DEFAULT_CONSTRUCTOR(nap::gui::Panel)
 	RTTI_PROPERTY("Flags", &nap::gui::Panel::mFlags, nap::rtti::EPropertyMetaData::Default)
 	RTTI_PROPERTY("Alpha", &nap::gui::Panel::mAlpha, nap::rtti::EPropertyMetaData::Default)
 	RTTI_PROPERTY("Border", &nap::gui::Panel::mBorder, nap::rtti::EPropertyMetaData::Default)
+	RTTI_PROPERTY("TitleBar", &nap::gui::Panel::mTitleBar, nap::rtti::EPropertyMetaData::Default)
 	RTTI_PROPERTY("Content", &nap::gui::Panel::mContent, nap::rtti::EPropertyMetaData::Embedded)
 RTTI_END_CLASS
 
@@ -70,10 +71,22 @@ namespace nap
 			ImGui::SetNextWindowPos(ImVec2(currentWindowPos.x + position.x, currentWindowPos.y + position.y));
 			ImGui::SetNextWindowSize(size);
 
-			ImGui::BeginChild(mTitle.c_str(), size, mBorder, flags);
+			ImGui::BeginChild(mID.c_str(), size, mBorder, flags);
+			if (mTitleBar)
+				ImGui::SetCursorPosY(ImGui::GetCursorPosY() + ImGui::GetFrameHeight());
 			if (mContent != nullptr)
 				mContent->show();
 			ImGui::EndChild();
+
+			if (mTitleBar)
+			{
+				auto rightBottom = ImVec2(ImGui::GetItemRectMax().x, ImGui::GetItemRectMin().y + ImGui::GetFrameHeight());
+				auto titlePos = ImVec2(ImGui::GetItemRectMin().x + ImGui::GetStyle().FramePadding.x, ImGui::GetItemRectMin().y + ImGui::GetStyle().FramePadding.y);
+				auto textColor = ImGui::ColorConvertFloat4ToU32(ImGui::GetStyle().Colors[ImGuiCol_Text]);
+				auto bgColor = ImGui::ColorConvertFloat4ToU32(ImGui::GetStyle().Colors[ImGuiCol_TitleBg]);
+				ImGui::GetWindowDrawList()->AddRectFilled(ImGui::GetItemRectMin(), rightBottom, bgColor);
+				ImGui::GetWindowDrawList()->AddText(titlePos, textColor, mTitle.c_str());
+			}
 		}
 
 
