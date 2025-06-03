@@ -71,12 +71,14 @@ namespace nap
 			ImGui::SetNextWindowPos(ImVec2(currentWindowPos.x + position.x, currentWindowPos.y + position.y));
 			ImGui::SetNextWindowSize(size);
 
-			ImGui::BeginChild(mID.c_str(), size, mBorder, flags);
-			if (mTitleBar)
-				ImGui::SetCursorPosY(ImGui::GetCursorPosY() + ImGui::GetFrameHeight());
-			if (mContent != nullptr)
-				mContent->show();
-			ImGui::EndChild();
+			if (ImGui::BeginChild(mID.c_str(), size, mBorder, flags))
+			{
+				if (mTitleBar)
+					ImGui::SetCursorPosY(ImGui::GetCursorPosY() + ImGui::GetTextLineHeightWithSpacing());
+				if (mContent != nullptr)
+					mContent->show();
+				ImGui::EndChild();
+			}
 
 			if (mTitleBar)
 			{

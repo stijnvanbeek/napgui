@@ -114,16 +114,20 @@ namespace nap
 				ImGui::SetNextWindowPos(position, mFlags.mNoMove ? ImGuiCond_Always : ImGuiCond_Once);
 				bool* openPtr = mFlags.mCanClose ? &mOpen : nullptr;
 				if (ImGui::Begin(label.c_str(), openPtr, flags))
+				{
 					if (mContent != nullptr)
 						mContent->show();
-				ImGui::End();
+					ImGui::End();
+				}
 			}
 			else {
 				ImGui::SetNextWindowPos(ImVec2(currentWindowPos.x + position.x, currentWindowPos.y + position.y), mFlags.mNoMove ? ImGuiCond_Always : ImGuiCond_Once);
 				if (ImGui::BeginChild(label.c_str(), size, mBorder, flags))
+				{
 					if (mContent != nullptr)
 						mContent->show();
-				ImGui::EndChild();
+					ImGui::EndChild();
+				}
 			}
 		}
 
