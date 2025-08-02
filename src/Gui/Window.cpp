@@ -28,6 +28,7 @@ RTTI_BEGIN_CLASS_NO_DEFAULT_CONSTRUCTOR(nap::gui::GuiWindow)
 	RTTI_PROPERTY("Border", &nap::gui::GuiWindow::mBorder, nap::rtti::EPropertyMetaData::Default)
 	RTTI_PROPERTY("RenderWindow", &nap::gui::GuiWindow::mRenderWindow, nap::rtti::EPropertyMetaData::Default)
 	RTTI_PROPERTY("Content", &nap::gui::GuiWindow::mContent, nap::rtti::EPropertyMetaData::Embedded)
+	RTTI_PROPERTY("MenuBar", &nap::gui::GuiWindow::mMenuBar, nap::rtti::EPropertyMetaData::Default)
 RTTI_END_CLASS
 
 
@@ -115,6 +116,8 @@ namespace nap
 				bool* openPtr = mFlags.mCanClose ? &mOpen : nullptr;
 				if (ImGui::Begin(label.c_str(), openPtr, flags))
 				{
+					if (mMenuBar != nullptr)
+						mMenuBar->show();
 					if (mContent != nullptr)
 						mContent->show();
 					ImGui::End();
@@ -124,6 +127,8 @@ namespace nap
 				ImGui::SetNextWindowPos(ImVec2(currentWindowPos.x + position.x, currentWindowPos.y + position.y), mFlags.mNoMove ? ImGuiCond_Always : ImGuiCond_Once);
 				if (ImGui::BeginChild(label.c_str(), size, mBorder, flags))
 				{
+					if (mMenuBar != nullptr)
+						mMenuBar->show();
 					if (mContent != nullptr)
 						mContent->show();
 					ImGui::EndChild();

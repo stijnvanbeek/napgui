@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Gui/Gui.h>
+#include <Gui/MenuBar.h>
 
 #include <nap/resourceptr.h>
 #include <renderwindow.h>
@@ -57,6 +58,7 @@ namespace nap
 
 			ResourcePtr<RenderWindow> mRenderWindow = nullptr; ///< Property: 'RenderWindow' The RenderWindow the panel will be rendered to. Optional, only needed when this panel is rendered directly onto the render window.
 			ResourcePtr<Gui> mContent = nullptr; ///< Property: 'Content' The Gui that is displayed inside the window.
+			ResourcePtr<MenuBar> mMenuBar = nullptr; ///< Property: 'MenuBar' Link to the window's menu bar, if any
 
 		public:
 			GuiWindow(Core& core);

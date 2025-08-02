@@ -2,6 +2,8 @@
 
 #include <nap/group.h>
 
+#include "nap/signalslot.h"
+
 namespace nap
 {
     namespace gui
@@ -13,8 +15,7 @@ namespace nap
             
         public:
             Action() = default;
-            
-        private:
+            Signal<> perform;
         };
 
 
