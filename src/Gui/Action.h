@@ -13,7 +13,7 @@ namespace nap
         // Forward declarations
         class GuiService;
     
-        class Action : public Resource
+        class NAPAPI Action : public Resource
         {
             RTTI_ENABLE(Resource)
             
