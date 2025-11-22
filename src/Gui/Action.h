@@ -1,8 +1,7 @@
 #pragma once
 
 #include <nap/group.h>
-
-#include "nap/signalslot.h"
+#include <nap/signalslot.h>
 
 namespace nap
 {
@@ -15,7 +14,8 @@ namespace nap
             
         public:
             Action() = default;
-            Signal<> perform;
+            void perform() { performSignal.trigger(*this); }
+            Signal<Action&> performSignal;
         };
 
 
