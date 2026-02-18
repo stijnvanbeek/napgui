@@ -9,6 +9,7 @@ RTTI_BEGIN_CLASS(nap::gui::HorizontalLayout)
 	RTTI_PROPERTY("Borders", &nap::gui::HorizontalLayout::mBorders, nap::rtti::EPropertyMetaData::Default)
 	RTTI_PROPERTY("Resizable", &nap::gui::HorizontalLayout::mResizable, nap::rtti::EPropertyMetaData::Default)
 	RTTI_PROPERTY("RelativeSizes", &nap::gui::HorizontalLayout::mRelativeSizes, nap::rtti::EPropertyMetaData::Default)
+	RTTI_PROPERTY("SplitterSize", &nap::gui::HorizontalLayout::mSplitterSize, nap::rtti::EPropertyMetaData::Default)
 	RTTI_PROPERTY("Content", &nap::gui::HorizontalLayout::mContent, nap::rtti::EPropertyMetaData::Embedded)
 RTTI_END_CLASS
 
@@ -35,6 +36,10 @@ namespace nap
 		{
 			auto height = ImGui::GetContentRegionAvail().y;
 			auto totalWidth = ImGui::GetContentRegionAvail().x;
+			if (mResizable)
+			{
+				totalWidth -= mSplitterSize * (mContent.size() - 1);
+			}
 			if (mColumnWidths.empty())
 				mColumnWidths.resize(mContent.size(), totalWidth / mContent.size());
 
@@ -65,7 +70,7 @@ namespace nap
 					if (mResizable)
 					{
 						ImGui::SameLine();
-						ImGui::InvisibleButton((mID + "Splitter" + std::to_string(i)).c_str(), ImVec2(8.f, height));
+						ImGui::InvisibleButton((mID + "Splitter" + std::to_string(i)).c_str(), ImVec2(mSplitterSize, height));
 						if (ImGui::IsItemActive())
 						{
 							mColumnWidths[i] += ImGui::GetIO().MouseDelta.x;

@@ -21,6 +21,7 @@ namespace nap
 			bool mBorders = true; ///< Property: 'Borders' True if borders should be drawn between the columns.
 			bool mResizable = true; ///< Property: 'Resizable' True if user can drag the column sizes
 			bool mRelativeSizes = true; ///< Property: 'RelativeSizes' Set to true to normalize mColumnWidths
+			float mSplitterSize = 7.f; ///< Property: 'SplitterSize' Size of the splitter between columns
 			std::vector<ResourcePtr<Gui>> mContent; ///< Property: 'Content' An embedded Gui to be displayed in each column. The size of this vector equals the number of columns.
 
 		public:
