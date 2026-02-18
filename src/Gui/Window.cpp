@@ -134,6 +134,12 @@ namespace nap
 						mMenuBar->show();
 					if (mContent != nullptr)
 						mContent->show();
+
+					// Make sure the gui window is never rendered above the render window (below, left and right are already clamped by ImGui itself).
+					ImVec2 windowPosition = ImGui::GetWindowPos();
+					if (windowPosition.y < 0)
+						ImGui::SetWindowPos(ImVec2(windowPosition.x, 0.f));
+
 					ImGui::EndChild();
 				}
 			}
