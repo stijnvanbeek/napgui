@@ -21,7 +21,9 @@ namespace nap
             Action(Core& core);
 
             EKeyCode mKey = EKeyCode::KEY_UNKNOWN; ///< Property: 'Key'
-            EKeyModifier mKeyModifier = EKeyModifier::None; ///< Property: 'KeyModifier'
+            bool mModShift = false;
+            bool mModAlt = false;
+            bool mModSuper = false;
 
             bool init(utility::ErrorState &errorState) override;
             void onDestroy() override;

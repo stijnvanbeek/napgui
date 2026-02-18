@@ -11,11 +11,38 @@ namespace nap
     namespace gui
     {
 
+
+        bool checkKeyEventWithAction(const KeyEvent &event, Action &action)
+        {
+            bool shiftDown  = (event.mModifier & static_cast<KeyModifier>(EKeyModifier::Shift))   != 0;
+            bool ctrlDown   = (event.mModifier & static_cast<KeyModifier>(EKeyModifier::Control)) != 0;
+            bool altDown    = (event.mModifier & static_cast<KeyModifier>(EKeyModifier::Alt))     != 0;
+            bool guiDown    = (event.mModifier & static_cast<KeyModifier>(EKeyModifier::Gui))     != 0;
+
+#ifdef __APPLE__
+            bool superDown  = guiDown;
+#else
+            bool superDown  = ctrlDown;
+#endif
+
+            bool modifiersOk = (shiftDown == action.mModShift)
+                            && (altDown   == action.mModAlt)
+                            && (superDown == action.mModSuper);
+
+            if (action.mKey == event.mKey && modifiersOk)
+                return true;
+
+            return false;
+        }
+
+
         void GuiService::processKeyEvent(const KeyEvent &event)
         {
             for (auto& action : mActions)
-                if (action->mKey == event.mKey && static_cast<KeyModifier>(action->mKeyModifier) == event.mModifier)
+            {
+                if (checkKeyEventWithAction(event, *action))
                     action->perform();
+            }
         }
 
 
@@ -25,7 +52,10 @@ namespace nap
             {
                 auto it = std::find_if(mActions.begin(), mActions.end(), [&](auto& a)
                 {
-                    return a->mKey == action.mKey && a->mKeyModifier == action.mKeyModifier;
+                    return a->mKey == action.mKey &&
+                        a->mModShift == action.mModShift &&
+                        a->mModAlt == action.mModAlt &&
+                        a->mModSuper == action.mModSuper;
                 });
                 if (it != mActions.end())
                 {

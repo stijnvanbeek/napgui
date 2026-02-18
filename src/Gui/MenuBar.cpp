@@ -5,7 +5,7 @@ RTTI_BEGIN_CLASS(nap::gui::MenuItemBase)
 RTTI_END_CLASS
 
 RTTI_BEGIN_CLASS(nap::gui::MenuItem)
-    RTTI_PROPERTY("Action", &nap::gui::MenuItem::mAction, nap::rtti::EPropertyMetaData::Default)
+    RTTI_PROPERTY("Action", &nap::gui::MenuItem::mAction, nap::rtti::EPropertyMetaData::Required)
 RTTI_END_CLASS
 
 RTTI_BEGIN_CLASS(nap::gui::Menu)
@@ -36,16 +36,26 @@ namespace nap
         void MenuItem::draw()
         {
             auto title = mTitle;
-            std::string keyStr = "";
+            std::string keyStr;
             if (mAction->mKey != EKeyCode::KEY_UNKNOWN)
             {
-                if (mAction->mKeyModifier != EKeyModifier::None)
+                keyStr = " (";
+                if (mAction->mModSuper)
                 {
-                    auto mod_name = RTTI_OF(EKeyModifier).get_enumeration().value_to_name(mAction->mKeyModifier);
-                    keyStr = keyStr + "(" + mod_name + "+";
+#ifdef __APPLE__
+                    keyStr += "Cmd-";
+#else
+                    keyStr += "Ctrl-";
+#endif
                 }
-                else
-                    keyStr = keyStr + " (";
+                if (mAction->mModAlt)
+                {
+                    keyStr = keyStr + "Alt-";
+                }
+                if (mAction->mModShift)
+                {
+                    keyStr = keyStr + "Shift-";
+                }
                 auto key_name = RTTI_OF(EKeyCode).get_enumeration().value_to_name(mAction->mKey);
                 keyStr = keyStr + key_name + ")";
             }

@@ -5,7 +5,9 @@
 RTTI_BEGIN_CLASS_NO_DEFAULT_CONSTRUCTOR(nap::gui::Action)
     RTTI_CONSTRUCTOR(nap::Core&)
     RTTI_PROPERTY("Key", &nap::gui::Action::mKey, nap::rtti::EPropertyMetaData::Default)
-    RTTI_PROPERTY("KeyModifier", &nap::gui::Action::mKeyModifier, nap::rtti::EPropertyMetaData::Default)
+    RTTI_PROPERTY("ModShift", &nap::gui::Action::mModShift, nap::rtti::EPropertyMetaData::Default)
+    RTTI_PROPERTY("ModAlt", &nap::gui::Action::mModAlt, nap::rtti::EPropertyMetaData::Default)
+    RTTI_PROPERTY("ModSuper", &nap::gui::Action::mModSuper, nap::rtti::EPropertyMetaData::Default)
 RTTI_END_CLASS
 
 DEFINE_GROUP(nap::gui::ActionGroup)
