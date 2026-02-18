@@ -40,11 +40,11 @@ namespace nap
 				bool mMenuBar = false;
 				bool mHorizontalScrollBar = false;
 				bool mCanClose = false;
+				bool mNoBringToFrontOnFocus = false;
 			};
 		public:
 			// Properties
 
-			// Positioning
 			// Positioning
 			glm::vec2 mPosition = { 0.f, 0.f }; ///< Property: 'Position' Position of the window within the available client area. Negative x and y values can be used in order to specify a position relative to the bottom right corner instead of the top left.
 			glm::vec2 mSize = { 0.f, 0.f }; ///< Property: 'Size' The width and height of the window. Negative values can be used to specify width and height values as a different to the width and height of the available client area.

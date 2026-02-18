@@ -32,6 +32,7 @@ namespace nap
 				bool mNoScrollBar = false;
 				bool mNoScrollWithMouse = false;
 				bool mHorizontalScrollBar = false;
+				bool mNoBringToFrontOnFocus = false;
 			};
 		public:
 			// Properties

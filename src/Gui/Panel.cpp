@@ -8,6 +8,7 @@ RTTI_BEGIN_STRUCT(nap::gui::Panel::Flags)
 	RTTI_PROPERTY("NoScrollBar", &nap::gui::Panel::Flags::mNoScrollBar, nap::rtti::EPropertyMetaData::Default)
 	RTTI_PROPERTY("NoScrollWithMouse", &nap::gui::Panel::Flags::mNoScrollWithMouse, nap::rtti::EPropertyMetaData::Default)
 	RTTI_PROPERTY("HorizontalScrollBar", &nap::gui::Panel::Flags::mHorizontalScrollBar, nap::rtti::EPropertyMetaData::Default)
+	RTTI_PROPERTY("NoBringToFrontOnFocus", &nap::gui::Panel::Flags::mNoBringToFrontOnFocus, nap::rtti::EPropertyMetaData::Default)
 RTTI_END_STRUCT
 
 RTTI_BEGIN_CLASS_NO_DEFAULT_CONSTRUCTOR(nap::gui::Panel)
@@ -45,6 +46,8 @@ namespace nap
 				flags = flags | ImGuiWindowFlags_NoScrollWithMouse;
 			if (mFlags.mHorizontalScrollBar)
 				flags = flags | ImGuiWindowFlags_HorizontalScrollbar;
+			if (mFlags.mNoBringToFrontOnFocus)
+				flags = flags | ImGuiWindowFlags_NoBringToFrontOnFocus;
 
 			ImGui::SetNextWindowBgAlpha(mAlpha);
 			ImVec2 position(mPosition.x * mGuiService->getScale(), mPosition.y * mGuiService->getScale());
@@ -70,6 +73,7 @@ namespace nap
 			auto currentWindowPos = ImGui::GetWindowPos();
 			ImGui::SetNextWindowPos(ImVec2(currentWindowPos.x + position.x, currentWindowPos.y + position.y));
 			ImGui::SetNextWindowSize(size);
+			ImGui::SetNextWindowBgAlpha(mAlpha);
 
 			if (ImGui::BeginChild(mID.c_str(), size, mBorder, flags))
 			{

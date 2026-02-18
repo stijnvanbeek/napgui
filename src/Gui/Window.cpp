@@ -16,6 +16,7 @@ RTTI_BEGIN_STRUCT(nap::gui::GuiWindow::WindowFlags)
 	RTTI_PROPERTY("MenuBar", &nap::gui::GuiWindow::WindowFlags::mMenuBar, nap::rtti::EPropertyMetaData::Default)
 	RTTI_PROPERTY("HorizontalScrollBar", &nap::gui::GuiWindow::WindowFlags::mHorizontalScrollBar, nap::rtti::EPropertyMetaData::Default)
 	RTTI_PROPERTY("CanClose", &nap::gui::GuiWindow::WindowFlags::mCanClose, nap::rtti::EPropertyMetaData::Default)
+	RTTI_PROPERTY("NoBringToFrontOnFocus", &nap::gui::GuiWindow::WindowFlags::mNoBringToFrontOnFocus, nap::rtti::EPropertyMetaData::Default)
 RTTI_END_STRUCT
 
 RTTI_BEGIN_CLASS_NO_DEFAULT_CONSTRUCTOR(nap::gui::GuiWindow)
@@ -83,6 +84,8 @@ namespace nap
 				flags = flags | ImGuiWindowFlags_MenuBar;
 			if (mFlags.mHorizontalScrollBar)
 				flags = flags | ImGuiWindowFlags_HorizontalScrollbar;
+			if (mFlags.mNoBringToFrontOnFocus)
+				flags = flags | ImGuiWindowFlags_NoBringToFrontOnFocus;
 
 			ImGui::SetNextWindowBgAlpha(mAlpha);
 			ImVec2 position(mPosition.x * mGuiService->getScale(), mPosition.y * mGuiService->getScale());
